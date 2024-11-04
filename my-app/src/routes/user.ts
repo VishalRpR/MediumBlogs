@@ -24,7 +24,7 @@ userRoute.post('/signup', async (c) => {
         const parsedData = signupInput.safeParse(body)
         if (!parsedData.success) {
             c.status(411)
-            return c.json({ message: "invalid inputs" })
+            return c.text("invalid inputs")
         }
         const user = await prisma.user.create({
             data: {
@@ -63,7 +63,7 @@ userRoute.post('/signin', async (c) => {
         const parsedData = signinInput.safeParse(body)
         if (!parsedData.success) {
             c.status(411)
-            return c.json({ message: "invalid inputs" })
+            return c.text( "invalid inputs" )
         }
 
 
@@ -76,7 +76,7 @@ userRoute.post('/signin', async (c) => {
 
         if (!user) {
             c.status(403);
-            return c.json({ message: "Incorrect creds" })
+            return c.text("Incorrect creds" )
         }
 
         const jwt = await sign({
