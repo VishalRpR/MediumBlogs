@@ -10,7 +10,9 @@ export const Appbar = ({ username }: { username: string }) => {
     return (
         <div className="px-5 py-3 flex border-b-[1px] border-slate-300 justify-between">
             <div className="text-3xl font-extrabold">
+                <Link to={"/blogs"}>
                 Medium
+                </Link>
             </div>
             <div className="flex justify-between text-xl   gap-10  font-extralight items-center">
                 <Link to={"/publish"}>
