@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Inputandlable } from './Inputandlable'
 import { SignupInput } from '@vishalrpr/medium-common'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import toast from 'react-hot-toast'
+import { BACKEND_URL } from '../config'
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     const navigate=useNavigate();
@@ -18,7 +19,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 
     async function sendRequest() {
         try {
-            const response = await axios.post(`http://localhost:8787/api/v1/user/${type === "signup" ? "signup" : "signin"}`, inputvalue)
+            const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, inputvalue)
 
             
 

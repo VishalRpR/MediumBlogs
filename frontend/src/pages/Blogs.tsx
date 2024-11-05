@@ -1,30 +1,56 @@
-import React from 'react'
+
 import { Blogcard } from '../components/Blogcard'
 import { Appbar } from '../components/Appbar'
+import { useBlogs } from '../hooks'
+
+import { Link } from 'react-router-dom'
+import { BlogSkeleton } from '../components/BlogSkeleton'
+
+
 
 export const Blogs = () => {
+
+    const { loading, blogs } = useBlogs();
+   
+
+    if (loading) {
+        return <div>
+            <Appbar username='vishal' />
+            <div className="flex justify-center">
+                <div>
+                    <BlogSkeleton />
+                    <BlogSkeleton />
+                    <BlogSkeleton />
+                    <BlogSkeleton />
+                    <BlogSkeleton />
+                </div>
+            </div>
+        </div>
+    }
     return (
         <div>
 
-            <Appbar/>
+            <Appbar username='vishal' />
+
             <div className='flex justify-center'>
-               <div className='py-4'>
-                <Blogcard
-                    title="Words and Phrases that Make it Obvious You Used ChatGPT"
-                    username='Vishal Rpr'
-                    publishedDate='May 21'
-                    content='A Financial Review article asked, “Is this one word the shortcut to detecting AI-written work?”'
-                />
-                <Blogcard
-                    title="Words and Phrases that Make it Obvious You Used ChatGPT"
-                    username='Vishal Rpr'
-                    publishedDate='May 21'
-                    content='A Financial Review article asked, “Is this one word the shortcut to detecting AI-written work?”'
-                />
+                <div className='py-4'>
+                    {blogs.map(blog => (
+                        <Link to={`/blogs/${blog.id}`} key={blog.id}>
+                            <Blogcard
+                                title={blog.title}
+                                username={blog.author.name ? blog.author.name : ""}
+                                publishedDate='May 21'
+                                content={blog.content}
+                            />
+                        </Link>)
+
+                    )}
+
                 </div>
 
 
+
             </div>
-        </div>
+        </div >
     )
 }
